@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "_20Buscar",
+    "slug": "_20Buscar",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.josephusdev.buscarnovo",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAor3hBEA5sP4vhOf3IsemujJhiR4NLIYA"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b37de8c9-f84c-4b45-9f18-8795626cdbd0"
+      }
+    }
+  }
+}
