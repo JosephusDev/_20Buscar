@@ -23,6 +23,7 @@ export default function App() {
   const [markerSelected, setMarkerSelected] = useState<any>(null);
   const mapRef = useRef<MapView>(null);
   const [mapVisible, setMapVisible] = useState<boolean>(false);
+  const [selectedAutocarro, setSelectedAutocarro] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,12 +44,14 @@ export default function App() {
   const carregarAutocarros = async () => {
     const response = await axios.get(`https://kimpexpress.vercel.app/`);
     setAutocarros(response.data);
-    console.log(response.data);
   };
 
   useEffect(() => {
+    setTimeout(()=>carregarAutocarros(), 10000)
+  });
+
+  useEffect(() => {
     requestLocationPermissions();
-    carregarAutocarros();
   }, []);
 
   useEffect(()=>{
@@ -75,8 +78,8 @@ export default function App() {
             ref={mapRef}
             style={{ flex: 1, width: width }}
             initialRegion={{
-              latitude: -7.6140787,
-              longitude: 15.0513794,
+              latitude: location ? location.coords.latitude : -7.6140787,
+              longitude: location ? location.coords.longitude : 15.0513794,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -100,9 +103,12 @@ export default function App() {
           <Text style={{paddingTop: 5, paddingBottom: 5}}><MaterialIcons name="directions-bus" size={25} color="#FF5656" /></Text>
           <Text style={styles.label2}>Escolha o autocarro</Text>
           <Picker
-            selectedValue={markerSelected}
+            selectedValue={selectedAutocarro}
             style={styles.picker}
-            onValueChange={(value)=>setMarkerSelected(autocarros[value-1])}>
+            onValueChange={(value: number)=>{
+              setSelectedAutocarro(value)
+              setMarkerSelected(autocarros[value-1])
+            }}>
             <Picker.Item key={0} label="Selecione" value={0} />
             {Array.isArray(autocarros) && autocarros.map((auto) => (
               <Picker.Item key={auto.id} label={auto.nome} value={auto.id} />
